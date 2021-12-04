@@ -1,4 +1,3 @@
-
 # Project 2: Text Based Adventure Game
 # Created by: Andrew Johnson (andrew.johnson26@snhu.edu)
 
@@ -10,14 +9,14 @@ intro = "'You are a lone traveler who has awoken in a foreign desert tavern with
 
 # Establish Rooms
 rooms = {
-    'Tavern': {'East': 'Ruins'},
-    'Ruins': {'North': 'Ruined Temple', 'East': 'Assassin Camp', 'West': 'Tavern', 'South': 'Hidden Caves'},
-    'Ruined Temple': {'East': 'Throne Room', 'South': 'Ruins'},
-    'Throne Room': {'West': 'Ruined Temple'},
-    'Assassin Camp': {'North': 'Assassin Chief\'s Tent', 'West': 'Ruins'},
-    'Assassin Chief\'s Tent': {'South': 'Assassin Camp'},
-    'Hidden Caves': {'North': 'Ruins', 'East': 'Coward\'s Cavern'},
-    'Coward\'s Cavern': {'West': 'Hidden Caves'}
+    'Tavern': {'east': 'Ruins'},
+    'Ruins': {'north': 'Ruined Temple', 'east': 'Assassin Camp', 'west': 'Tavern', 'south': 'Hidden Caves'},
+    'Ruined Temple': {'east': 'Throne Room', 'south': 'Ruins'},
+    'Throne Room': {'west': 'Ruined Temple'},
+    'Assassin Camp': {'north': 'Assassin Chief\'s Tent', 'west': 'Ruins'},
+    'Assassin Chief\'s Tent': {'south': 'Assassin Camp'},
+    'Hidden Caves': {'north': 'Ruins', 'east': 'Coward\'s Cavern'},
+    'Coward\'s Cavern': {'west': 'Hidden Caves'}
 }
 room_items = {
     'Tavern': [],
@@ -42,7 +41,7 @@ room_mobs = {
 
 # Player global variables
 current_room = 'Tavern'  # Instantiate to starting location
-inventory = ['test']
+inventory = []
 
 
 def game_help():
@@ -58,28 +57,31 @@ def game_help():
 
 def command():
     valid_commands = ['go', 'get', 'attack', 'inventory']
-    
-    user_command = input('Enter a command:\n')
+
+    user_command = input('What would you like to do?\n')
     tokens = user_command.split()
 
+    # Command validation/redirection
     if tokens[0] == 'help':
         game_help()
-        return
+    elif tokens[0] == 'exit':
+        print('Thanks for playing, goodbye!')
+        exit()
     elif tokens[0] == 'inventory':
         printInventory()
     elif len(tokens) != 2 or tokens[0] not in valid_commands:
         print('Invalid command -- try \'help\'')
     elif tokens[0] == 'go':
         go(tokens[1])
-        
 
 
 def go(direction):
     global current_room
+    direction = direction.lower()
     if direction not in rooms[current_room]:
         print('There is nothing this way...')
     else:
-        current_room = str(rooms[direction])
+        current_room = rooms[current_room][direction]
 
 
 def printInventory():
@@ -87,7 +89,10 @@ def printInventory():
         print(item)
 
 
-
 while True:
     command()
-    print(current_room)
+    print('You have entered {}'.format(current_room))
+    if current_room == 'Throne Room':
+        print('You have reached the final room and defeated The Sufferer!\n')
+        print('Thanks for playing, goodbye!')
+        exit()
