@@ -1,3 +1,4 @@
+
 # Project 2: Text Based Adventure Game
 # Created by: Andrew Johnson (andrew.johnson26@snhu.edu)
 
@@ -41,7 +42,7 @@ room_mobs = {
 
 # Player global variables
 current_room = 'Tavern'  # Instantiate to starting location
-inventory = []
+inventory = ['test']
 
 
 def game_help():
@@ -56,22 +57,37 @@ def game_help():
 
 
 def command():
+    valid_commands = ['go', 'get', 'attack', 'inventory']
+    
     user_command = input('Enter a command:\n')
-    user_command.split()
+    tokens = user_command.split()
 
-    if len(user_command) > 2:
-        print('Too many arguments - type \'help\'')
-    elif user_command[0] == 'go':
-        user_command[1].lower()
-        go(user_command[1], current_room)
+    if tokens[0] == 'help':
+        game_help()
+        return
+    elif tokens[0] == 'inventory':
+        printInventory()
+    elif len(tokens) != 2 or tokens[0] not in valid_commands:
+        print('Invalid command -- try \'help\'')
+    elif tokens[0] == 'go':
+        go(tokens[1])
+        
 
 
-def go(direction, current_room_param):
-    if direction not in rooms[current_room_param]:
+def go(direction):
+    global current_room
+    if direction not in rooms[current_room]:
         print('There is nothing this way...')
     else:
-        current_room = rooms[current_room_param][direction]
+        current_room = str(rooms[direction])
+
+
+def printInventory():
+    for item in inventory:
+        print(item)
+
 
 
 while True:
     command()
+    print(current_room)
