@@ -1,5 +1,6 @@
 # Project 2: Text Based Adventure Game
 # Created by: Andrew Johnson (andrew.johnson26@snhu.edu)
+# TODO: Implement functionality to get an item
 
 # Intro
 intro = "'You are a lone traveler who has awoken in a foreign desert tavern with no memory of the recent past.\nUpon " \
@@ -20,24 +21,26 @@ rooms = {
 }
 room_items = {
     'Tavern': [],
-    'Ruins': ['Rusty Sword'],
+    'Ruins': ['rusty sword'],
     'Ruined Temple': [],
     'Throne Room': [],
-    'Assassin Camp': ['Steel Sword'],
-    'Assassin Chief\'s Tent': ['Key of Suffering'],
-    'Hidden Caves': ['Widower Bow'],
-    'Coward\'s Cavern': ['Key of Prosperity']
+    'Assassin Camp': ['steel sword'],
+    'Assassin Chief\'s Tent': ['key of suffering'],
+    'Hidden Caves': ['widower bow'],
+    'Coward\'s Cavern': ['key of prosperity']
 }
-room_mobs = {
-    'Tavern': ['Mean Drunk'],
-    'Ruins': ['Desert Wolves'],
-    'Ruined Temple': ['Disciples of Suffering'],
-    'Throne Room': ['The Sufferer'],
-    'Assassin Camp': ['Assassins'],
-    'Assassin Chief\'s Tent': ['Assassin Chief'],
-    'Hidden Caves': ['Spiders'],
-    'Coward\'s Cavern': ['Coward']
-}
+
+# Scrapped, out of project scope
+# room_mobs = {
+#     'Tavern': ['Mean Drunk'],
+#     'Ruins': ['Desert Wolves'],
+#     'Ruined Temple': ['Disciples of Suffering'],
+#     'Throne Room': ['The Sufferer'],
+#     'Assassin Camp': ['Assassins'],
+#     'Assassin Chief\'s Tent': ['Assassin Chief'],
+#     'Hidden Caves': ['Spiders'],
+#     'Coward\'s Cavern': ['Coward']
+# }
 
 # Player global variables
 current_room = 'Tavern'  # Instantiate to starting location
@@ -56,7 +59,7 @@ def game_help():
 
 
 def command():
-    valid_commands = ['go', 'get', 'attack', 'inventory']
+    valid_commands = ['go', 'get', 'inventory']
 
     user_command = input('What would you like to do?\n')
     tokens = user_command.split()
@@ -68,7 +71,7 @@ def command():
         print('Thanks for playing, goodbye!')
         exit()
     elif tokens[0] == 'inventory':
-        printInventory()
+        print_inventory()
     elif len(tokens) != 2 or tokens[0] not in valid_commands:
         print('Invalid command -- try \'help\'')
     elif tokens[0] == 'go':
@@ -84,7 +87,7 @@ def go(direction):
         current_room = rooms[current_room][direction]
 
 
-def printInventory():
+def print_inventory():
     for item in inventory:
         print(item)
 
