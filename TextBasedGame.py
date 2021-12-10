@@ -112,7 +112,11 @@ while True:
     else:
         print('Around you, there is {}'.format(room_items[current_room]))
 
-    if current_room == 'Throne Room':
+    if current_room == 'Throne Room' and len(inventory) == 5:  # Hard-coded logic for determining win condition (bad)
         print('You have reached the final room and defeated The Sufferer!\n')
         print('Thanks for playing, goodbye!')
+        exit()
+    elif current_room == 'Throne Room':
+        print('You did not have all the items necessary to defeat The Sufferer...')
+        print('DEFEAT!')
         exit()
