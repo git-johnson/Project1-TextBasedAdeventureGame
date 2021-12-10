@@ -29,18 +29,6 @@ room_items = {
     'Coward\'s Cavern': ['rune']
 }
 
-# Scrapped, out of project scope
-# room_mobs = {
-#     'Tavern': ['Mean Drunk'],
-#     'Ruins': ['Desert Wolves'],
-#     'Ruined Temple': ['Disciples of Suffering'],
-#     'Throne Room': ['The Sufferer'],
-#     'Assassin Camp': ['Assassins'],
-#     'Assassin Chief\'s Tent': ['Assassin Chief'],
-#     'Hidden Caves': ['Spiders'],
-#     'Coward\'s Cavern': ['Coward']
-# }
-
 # Player global variables
 current_room = 'Tavern'  # Instantiate to starting location
 inventory = []
