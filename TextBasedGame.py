@@ -106,11 +106,12 @@ def get(item):
 def print_inventory():
     for item in inventory:
         print(item)
+    print()
 
 
 while True:
     command()
-    print('You have entered {}'.format(current_room))
+    print('You are in {}'.format(current_room))
 
     if len(room_items[current_room]) == 0:
         print('You don\'t see anything of value here...')
