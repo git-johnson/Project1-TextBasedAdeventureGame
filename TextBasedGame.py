@@ -97,6 +97,9 @@ def print_inventory():
     print()
 
 
+# Main
+
+
 print(intro)
 print()
 print('You are in {}'.format(current_room))
