@@ -1,6 +1,5 @@
 # Project 2: Text Based Adventure Game
 # Created by: Andrew Johnson (andrew.johnson26@snhu.edu)
-# TODO: Implement functionality to get an item
 
 # Intro
 intro = "'You are a lone traveler who has awoken in a foreign desert tavern with no memory of the recent past.\nUpon " \
@@ -21,13 +20,13 @@ rooms = {
 }
 room_items = {
     'Tavern': [],
-    'Ruins': ['rusty sword'],
+    'Ruins': ['sword'],
     'Ruined Temple': [],
     'Throne Room': [],
-    'Assassin Camp': ['steel sword'],
-    'Assassin Chief\'s Tent': ['key of suffering'],
-    'Hidden Caves': ['widower bow'],
-    'Coward\'s Cavern': ['key of prosperity']
+    'Assassin Camp': ['staff'],
+    'Assassin Chief\'s Tent': ['spell'],
+    'Hidden Caves': ['bow'],
+    'Coward\'s Cavern': ['rune']
 }
 
 # Scrapped, out of project scope
@@ -76,6 +75,8 @@ def command():
         print('Invalid command -- try \'help\'')
     elif tokens[0] == 'go':
         go(tokens[1])
+    elif tokens[0] == 'get':
+        get(tokens[1])
 
 
 def go(direction):
@@ -87,6 +88,21 @@ def go(direction):
         current_room = rooms[current_room][direction]
 
 
+def get(item):
+    global current_room, inventory
+    item = item.lower()
+    unclaimed_items = []
+    for key, value in enumerate(room_items[current_room]):
+        unclaimed_items.append(value)
+
+    if item not in room_items[current_room]:
+        print('That doesn\'t seem to exist here...')
+    else:
+        inventory.append(item)
+        print('Picked up {}'.format(item))
+        del room_items[current_room][unclaimed_items.index(item)]
+
+
 def print_inventory():
     for item in inventory:
         print(item)
@@ -95,6 +111,12 @@ def print_inventory():
 while True:
     command()
     print('You have entered {}'.format(current_room))
+
+    if len(room_items[current_room]) == 0:
+        print('You don\'t see anything of value here...')
+    else:
+        print('Around you, there is {}'.format(room_items[current_room]))
+
     if current_room == 'Throne Room':
         print('You have reached the final room and defeated The Sufferer!\n')
         print('Thanks for playing, goodbye!')
