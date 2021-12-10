@@ -97,6 +97,9 @@ def print_inventory():
     print()
 
 
+print(intro)
+print()
+print('You are in {}'.format(current_room))
 while True:
     command()
     print('You are in {}'.format(current_room))
